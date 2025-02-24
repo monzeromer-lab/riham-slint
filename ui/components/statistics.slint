@@ -1,0 +1,121 @@
+export component StatisticCard {
+    in property <string> title;
+    in property <int> value;
+    in property <color> accentColor;
+
+    Rectangle {
+        width: 170px;
+        height: 100px;
+        border-radius: 12px;
+        background: white;
+        // Uncomment the following if shadows are supported in your Slint version:
+        // shadow: { offset: (0, 2), blur: 6, color: "#888888" };
+
+        HorizontalLayout {
+            spacing: 0;
+
+            // Accent stripe on the left
+            Rectangle {
+                width: 4px;
+                background: accentColor;
+                border-radius: 12px;
+            }
+
+            // Card content
+            VerticalLayout {
+                width: parent.width - 4px;
+                padding: 8px;
+                spacing: 4px;
+
+                Text {
+                    text: title;
+                    font-size: 14px;
+                    color: #424242;
+                    font-weight: 600;
+                }
+                Text {
+                    text: value;
+                    font-size: 28px;
+                    color: #212121;
+                    horizontal-alignment: center;
+                }
+            }
+        }
+    }
+}
+
+
+export component AnalyticsCard {
+    in property <string> title: "Today's Analytics";
+    
+    VerticalLayout {
+        // background: #eceff1;
+        // border-radius: 12px;
+        width: 100%;
+        height: 100%;
+        spacing: 0px;
+        // border-color: black;
+        // border-width: 1px;
+        alignment: start;
+        
+
+        VerticalLayout {
+            height: 100%;
+            width: 100%;
+            spacing: 40px;
+            alignment: start;
+
+            Text {
+                text: title;
+                font-size: 18px;
+                color: #424242;
+                padding-top: 8px;
+            }
+
+            HorizontalLayout {
+                spacing: 10px;
+
+                StatisticCard {
+                    title: "This Month";
+                    value: 1200;
+                    accentColor: #42a5f5;
+                }
+
+                StatisticCard {
+                    title: "Last Month";
+                    value: 950;
+                    accentColor: #66bb6a;
+                }
+
+                StatisticCard {
+                    title: "Total Sales";
+                    value: 6200;
+                    accentColor: #ffa726;
+                }
+            }
+
+            HorizontalLayout {
+                spacing: 10px;
+
+                StatisticCard {
+                    title: "Returns/Loses";
+                    value: 8;
+                    accentColor: #ef5350;
+                }
+
+                StatisticCard {
+                    title: "Sales";
+                    value: 320;
+                    accentColor: #26c6da;
+                }
+
+                StatisticCard {
+                    title: "Customers";
+                    value: 150;
+                    accentColor: #ab47bc;
+                }
+            }
+        }
+    }
+}
+

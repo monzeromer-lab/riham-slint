@@ -1,0 +1,36 @@
+import { AnalyticsCard } from "components/statistics.slint";
+import { ListView, ScrollView, HorizontalBox } from "std-widgets.slint";
+import { NavigationSidebar } from "components/NavSideBar.slint";
+import { Inventory } from "components/inventory.slint";
+
+export component Riham inherits Window {
+    min-width: 1024px;
+    min-height: 768px;
+    padding: 4px;
+    background: #eceff1;
+    in-out property <string> currentPage;
+
+    HorizontalLayout {
+        width: 100%;
+        height: 100%;
+        spacing: 8px;
+        // alignment: center;
+
+        VerticalLayout {
+            width: 20%;
+            nav := NavigationSidebar {
+                
+            }
+        }
+
+        VerticalLayout {
+            width: 100%;
+            // height: 100%;
+            // spacing: 20px;
+            HorizontalLayout {
+                if (nav.activeRoute == "dashboard") : AnalyticsCard {}
+                if (nav.activeRoute == "inventory") : Inventory {}
+            }
+        }
+    }
+}

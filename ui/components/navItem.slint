@@ -1,0 +1,27 @@
+export component NavItem {
+    in property <string> label;
+    in property <bool> isActive: false;
+    in property <bool> isLogout: false;
+    callback clicked;
+
+    // Adjust sizing/colors to fit your style
+    Rectangle {
+        width: 90%;
+        height: 40px;
+        border-radius: 20px;
+        background: isActive ? #f0f0f0 : transparent;
+
+        TouchArea {
+            clicked => { root.clicked(); }
+        }
+
+        Text {
+            text: label;
+            color: isLogout ? #d32f2f : #424242;  // Red for logout, dark gray for normal
+            font-size: 16px;
+            horizontal-alignment: left;
+            x: 16px;  // Slight left padding
+            vertical-alignment: center;
+        }
+    }
+}

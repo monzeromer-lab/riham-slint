@@ -1,0 +1,125 @@
+import { HorizontalBox, VerticalBox, Palette } from "std-widgets.slint";
+
+component NavSideBarItem inherits Rectangle {
+    in property <int> tab-index;
+    in property <bool> selected;
+    in property <bool> has-focus;
+    in property <bool> is-logout;
+    in-out property <string> text <=> label.text;
+
+    callback clicked <=> touch.clicked;
+
+    min-height: l.preferred-height;
+    accessible-role: tab;
+    accessible-label: root.text;
+    accessible-item-index: root.tab-index;
+    accessible-item-selectable: true;
+    accessible-item-selected: root.selected;
+    accessible-action-default => { self.clicked(); }
+    
+
+    states [
+        pressed when touch.pressed : {
+            state.opacity: 0.8;
+        }
+        hover when touch.has-hover : {
+            state.opacity: 0.6;
+        }
+        selected when root.selected : {
+            state.opacity: 1;
+        }
+        focused when root.has-focus : {
+            state.opacity: 0.8;
+        }
+    ]
+
+    state := Rectangle {
+        opacity: 0;
+        background: root.is-logout ? #ff5252 : Palette.background;
+        border-radius: 8px;
+        animate opacity { duration: 150ms; }
+    }
+
+    l := HorizontalBox {
+        y: (parent.height - self.height) / 2;
+        spacing: 12px;
+        padding: 8px;
+
+        label := Text {
+            vertical-alignment: center;
+            horizontal-alignment: left;
+            color: root.is-logout ? #ffffff : black;
+            accessible-role: none;
+            states [
+                selected when root.selected : {
+                    color: #ffffff;
+                }
+            ]
+        }
+    }
+
+    touch := TouchArea {
+        width: 100%;
+        height: 100%;
+    }
+}
+
+export component NavigationSidebar inherits Rectangle {
+    in-out property <string> activeRoute: "dashboard";
+    callback navigate(string);
+
+    private property <[string]> menuItems: [
+        "Dashboard",
+        "Inventory",
+        "Sales",
+        "Reports"
+    ];
+
+    private property <[string]> routes: [
+        "dashboard",
+        "inventory",
+        "sales",
+        "reports"
+    ];
+
+    width: 20%;
+    height: 100%;
+
+    Rectangle {
+        background: #ffffff;
+    }
+
+    VerticalBox {
+        padding: 16px;
+        spacing: 24px;
+        alignment: start;
+
+        navigation := VerticalLayout {
+            alignment: start;
+            spacing: 8px;
+
+            for item[index] in root.menuItems : NavSideBarItem {
+                clicked => { 
+                    root.activeRoute = root.routes[index];
+                    root.navigate(root.routes[index]); 
+                }
+                tab-index: index;
+                text: item;
+                selected: root.routes[index] == root.activeRoute;
+            }
+        }
+
+        VerticalLayout {
+            alignment: end;
+            height: 100%;
+
+            NavSideBarItem {
+                text: "Log out";
+                is-logout: true;
+                clicked => {
+                    root.navigate("logout");
+                }
+            }
+        }
+    }
+}
