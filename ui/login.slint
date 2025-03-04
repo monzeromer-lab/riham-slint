@@ -53,23 +53,34 @@ export component LoginPage {
                 messageColor: red;
             }
 
+            HorizontalLayout {
+                Text {
+                    text: "Username:";
+                    color: black;
+                }
             // Username Input
             rTextEdit {
-                width: 100%;
+                    width: 100%;
                 // placeholder-text: "Username";
                 height: 32px;
-                text: root.username;
-                updated(text) => {
-                    root.username = text;
+                    text: root.username;
+                    updated(text) => {
+                        root.username = text;
+                    }
                 }
             }
 
+            HorizontalLayout {
+                Text {
+                    text: "Password:";
+                    color: black;
+                }
             // Password Input
             rTextEdit {
-                width: 100%;
+                    width: 100%;
                 // placeholder-text: "Password";
                 text: root.password;
-                height: 32px;
+                    height: 32px;
                 // enabled: true;
                 // input-type: password;
                 // border-radius: 8px;
@@ -77,7 +88,8 @@ export component LoginPage {
                 // border-color: #ddd;
                 // padding: 6px;
                 updated(text) => {
-                    root.password = text;
+                        root.password = text;
+                    }
                 }
             }
 
@@ -102,7 +114,6 @@ export component LoginPage {
                         login(root.username, root.password);
                     }
                 }
-
             }
         }
     }
