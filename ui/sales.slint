@@ -1,0 +1,174 @@
+import { rTextEdit } from "components/textInput.slint";
+import { ComboBox } from "std-widgets.slint";
+import { DropDownList } from "components/dropdown.slint";
+import { rButton } from "components/button.slint";
+export component SalesPage {
+    width: 100%;
+    height: 100%;
+    VerticalLayout {
+        height: 100%;
+        width: 100%;
+        padding: 8px;
+        spacing: 15px;
+
+        HorizontalLayout {
+            spacing: 8px;
+            width: 100%;
+            height: 40px;
+            alignment: start;
+            Text {
+                width: 50px;
+                text: "Name";
+                color: black;
+            }
+
+            rTextEdit {
+                text: "";
+            }
+        }
+
+        HorizontalLayout {
+            spacing: 8px;
+            width: 100%;
+            height: 40px;
+            alignment: start;
+            Text {
+                text: "Phone";
+                color: black;
+            }
+
+            rTextEdit {
+                text: "";
+            }
+        }
+
+        HorizontalLayout {
+            spacing: 8px;
+            width: 100%;
+            height: 40px;
+            alignment: start;
+            Text {
+                text: "Address";
+                color: black;
+            }
+
+            rTextEdit {
+                text: "";
+            }
+        }
+
+        HorizontalLayout {
+            spacing: 8px;
+            width: 100%;
+            height: 40px;
+            alignment: start;
+            Text {
+                text: "Type";
+                color: black;
+            }
+
+            DropDownList {
+                width: 100px;
+                model: [{ name: "Customer" }, { name: "Supplier" }];
+                current-value: { name: "Customer" };
+                showColor: false;
+            }
+
+            Text {
+                text: "Color";
+                color: black;
+            }
+
+            DropDownList {
+                width: 100px;
+                model: [
+                    { name: "Red", color: Colors.red },
+                    { name: "Green", color: Colors.green },
+                    { name: "Blue", color: Colors.blue }
+                ];
+                current-value: { name: "Red", color: Colors.red };
+            }
+        }
+
+        HorizontalLayout {
+            spacing: 8px;
+            width: 100%;
+            height: 40px;
+            alignment: start;
+            Text {
+                text: "Size";
+                color: black;
+            }
+
+            DropDownList {
+                width: 100px;
+                model: [{ name: "Small" }, { name: "Medium" }, { name: "Large" }];
+                current-value: { name: "Small" };
+            }
+
+            Text {
+                text: "Quantity";
+                color: black;
+            }
+
+            rTextEdit {
+                text: "";
+                type: InputType.number;
+            }
+        }
+
+        Rectangle {
+            height: 40px;
+            width: 100%;
+        }
+
+        HorizontalLayout {
+            height: 20px;
+            width: 100%;
+            spacing: 1px;
+            Text {
+                width: 120px;
+                text: "Discount";
+                color: black;
+                font-size: 16px;
+                font-weight: 400;
+            }
+
+            Text {
+                text: "10";
+                color: black;
+            }
+        }
+
+        HorizontalLayout {
+            height: 20px;
+            width: 100%;
+            spacing: 1px;
+            Text {
+                width: 120px;
+                text: "Total";
+                color: black;
+                font-size: 16px;
+                font-weight: 400;
+            }
+
+
+            Text {
+                text: "10";
+                color: black;
+            }
+        }
+        Rectangle {
+            height: 40px;
+            width: 100%;
+        }
+        HorizontalLayout {
+            width: 100%;
+            alignment: center;
+            rButton {
+                text: "Confirm";
+                btncolor: white;
+            }
+        }
+    }
+}

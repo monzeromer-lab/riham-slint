@@ -1,0 +1,109 @@
+import { HorizontalBox, VerticalBox, Palette, TextEdit } from "std-widgets.slint";
+import { MessageBox } from "components/message.slint";
+import { rTextEdit } from "components/textInput.slint";
+
+export component LoginPage {
+    min-width: 1024px;
+    min-height: 768px;
+    in-out property <string> username;
+    in-out property <string> password;
+    in-out property <bool> LoginError;
+    callback login(string, string);
+
+    public function showLoginError() {
+        LoginError = true;
+        timer.running = true;
+    }
+
+    timer := Timer {
+        interval: 3s;
+        running: false;
+        triggered => {
+            LoginError = false;
+            timer.running = false;
+        }
+    }
+
+    Rectangle {
+        width: 300px;
+        height: 240px;
+        border-radius: 12px;
+        background: white;
+        // Uncomment if shadow is supported
+        // shadow: { offset: (0, 2), blur: 6, color: "#888888" };
+
+        VerticalLayout {
+            width: 100%;
+            height: 100%;
+            padding: 16px;
+            spacing: 12px;
+            alignment: center;
+
+            // Title
+            Text {
+                text: "Login";
+                font-size: 18px;
+                color: #424242;
+                font-weight: 600;
+                horizontal-alignment: center;
+            }
+
+            if (root.LoginError): MessageBox {
+                message: "Login Failed";
+                messageColor: red;
+            }
+
+            // Username Input
+            rTextEdit {
+                width: 100%;
+                // placeholder-text: "Username";
+                height: 32px;
+                text: root.username;
+                updated(text) => {
+                    root.username = text;
+                }
+            }
+
+            // Password Input
+            rTextEdit {
+                width: 100%;
+                // placeholder-text: "Password";
+                text: root.password;
+                height: 32px;
+                // enabled: true;
+                // input-type: password;
+                // border-radius: 8px;
+                // border-width: 1px;
+                // border-color: #ddd;
+                // padding: 6px;
+                updated(text) => {
+                    root.password = text;
+                }
+            }
+
+            // Login Button
+            Rectangle {
+                width: 100%;
+                height: 36px;
+                border-radius: 8px;
+                background: #42a5f5;
+                Text {
+                    text: "Login";
+                    font-size: 14px;
+                    color: white;
+                    horizontal-alignment: center;
+                    vertical-alignment: center;
+                }
+
+                TouchArea {
+                    width: 100%;
+                    height: 36px;
+                    clicked => {
+                        login(root.username, root.password);
+                    }
+                }
+
+            }
+        }
+    }
+}

@@ -1,0 +1,16 @@
+export component MessageBox {
+    in-out property <string> message;
+    in-out property <color> messageColor;
+
+    Rectangle {
+        width: 100%;
+        height: 30px;
+        border-radius: 8px;
+        color: messageColor;
+        padding: 8px;
+        Text {
+            text: message;
+            horizontal-alignment: center;
+        }
+    }
+}

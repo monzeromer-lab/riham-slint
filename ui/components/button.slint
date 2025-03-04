@@ -1,0 +1,32 @@
+import { Button, VerticalBox } from "std-widgets.slint";
+export component rButton inherits Window {
+
+    in property <string> text;
+    in property <color> btncolor;
+    callback clicked();
+    width: 120px;
+    height: 40px;
+    TouchArea {
+        mouse-cursor: pointer;
+        Rectangle {
+            width: 120px;
+            height: 40px;
+            background: #000000;
+            border-radius: 8px;
+            VerticalBox {
+                alignment: center;
+                HorizontalLayout {
+                    alignment: center;
+                    label := Text {
+                        text: text;
+                        color: btncolor;
+                    }
+                }
+            }
+        }
+
+        clicked => {
+            clicked();
+        }
+    }
+}

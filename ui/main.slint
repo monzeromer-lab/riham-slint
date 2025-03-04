@@ -2,13 +2,26 @@ import { AnalyticsCard } from "components/statistics.slint";
 import { ListView, ScrollView, HorizontalBox } from "std-widgets.slint";
 import { NavigationSidebar } from "components/NavSideBar.slint";
 import { Inventory } from "components/inventory.slint";
+import { LoginPage } from "login.slint";
+import { SalesPage } from "sales.slint";
+import { ReportsPage } from "reports.slint";
 
 export component Riham inherits Window {
     min-width: 1024px;
     min-height: 768px;
     padding: 4px;
     background: #eceff1;
+    in-out property <bool> loggedin: false;
     in-out property <string> currentPage;
+    callback login <=> loginPage.login;
+
+    loginPage := LoginPage { 
+        visible: !loggedin;
+    }
+
+    public function loginError() {
+        loginPage.showLoginError();
+    }
 
     HorizontalLayout {
         width: 100%;
@@ -18,9 +31,12 @@ export component Riham inherits Window {
 
         VerticalLayout {
             width: 20%;
+            visible: loggedin;
             nav := NavigationSidebar {
-                
-            }
+                logout => {
+                    loggedin = false;
+                }
+             }
         }
 
         VerticalLayout {
@@ -28,8 +44,10 @@ export component Riham inherits Window {
             // height: 100%;
             // spacing: 20px;
             HorizontalLayout {
-                if (nav.activeRoute == "dashboard") : AnalyticsCard {}
-                if (nav.activeRoute == "inventory") : Inventory {}
+                if (nav.activeRoute == "dashboard" && loggedin): AnalyticsCard { }
+                if (nav.activeRoute == "inventory" && loggedin): Inventory { }
+                if (nav.activeRoute == "sales" && loggedin): SalesPage { }
+                if (nav.activeRoute == "reports" && loggedin): ReportsPage { }
             }
         }
     }
