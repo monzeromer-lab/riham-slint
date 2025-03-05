@@ -69,13 +69,13 @@ component NavSideBarItem inherits Rectangle {
 }
 
 export component NavigationSidebar inherits Rectangle {
-    in-out property <string> activeRoute: "dashboard";
+    in-out property <string> activeRoute: "users";
     callback navigate(string);
     callback logout();
 
-    private property <[string]> menuItems: ["Dashboard", "Inventory", "Sales", "Reports"];
+    private property <[string]> menuItems: ["Dashboard", "Inventory", "Sales", "Reports", "Users"];
 
-    private property <[string]> routes: ["dashboard", "inventory", "sales", "reports"];
+    private property <[string]> routes: ["dashboard", "inventory", "sales", "reports", "users"];
 
     width: 190px;
     height: 100%;

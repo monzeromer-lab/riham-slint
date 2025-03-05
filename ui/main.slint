@@ -5,15 +5,21 @@ import { Inventory } from "components/inventory.slint";
 import { LoginPage } from "login.slint";
 import { SalesPage } from "sales.slint";
 import { ReportsPage } from "reports.slint";
+import { UsersPage, User } from "users.slint";
 
 export component Riham inherits Window {
     min-width: 1024px;
     min-height: 768px;
     padding: 4px;
     background: #eceff1;
-    in-out property <bool> loggedin: false;
+    in-out property <bool> loggedin: true;
     in-out property <string> currentPage;
+    in-out property <[User]> users;
     callback login <=> loginPage.login;
+    callback deleteUser(int);
+    callback createUser(string, string);
+    callback refreshUsers();
+
 
     loginPage := LoginPage { 
         visible: !loggedin;
@@ -48,6 +54,18 @@ export component Riham inherits Window {
                 if (nav.activeRoute == "inventory" && loggedin): Inventory { }
                 if (nav.activeRoute == "sales" && loggedin): SalesPage { }
                 if (nav.activeRoute == "reports" && loggedin): ReportsPage { }
+                if (nav.activeRoute == "users" && loggedin): UsersPage { 
+                    users: users;
+                    deleteUser(id) => {
+                        deleteUser(id);
+                    }
+                    createUser(username, password) => {
+                        createUser(username, password);
+                    }
+                    refreshUsers => {
+                        refreshUsers();
+                    }
+                }
             }
         }
     }

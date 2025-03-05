@@ -1,0 +1,30 @@
+import { rButton } from "button.slint";
+export component UserRow {
+    in property <string> name;
+    in property <int> id;
+    callback deleteUser(int);
+
+    HorizontalLayout {
+        width: 100%;
+        padding: 4px;
+        Text {
+            text: id;
+            color: black;
+        }
+
+        Text {
+            text: name;
+            color: black;
+        }
+
+        rButton {
+            text: "Delete";
+            btncolor: white;
+            background: red;
+            clicked => {
+                debug("Delete", name, id);
+                deleteUser(id);
+            }
+        }
+    }
+}
